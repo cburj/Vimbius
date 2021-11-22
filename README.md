@@ -5,8 +5,7 @@
 </p>
 
 ## What is VIMBIUS?
-VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Plugins designed to help with the highlighting and creation of DAI-Specific Files. 
-bloated.
+VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Plugins designed to help with the highlighting and creation of DAI-Specific Files.
 
 ## Currently Supported Files:
 * Plugin Files (e.g. order.plugin)
