@@ -1,0 +1,42 @@
+![VIMPS Logo](VIMPS_Banner.png)
+
+<p align="center">
+    Current Version: 4.1.1 (November 2021)
+</p>
+
+## What is VIMPS?
+VIMPS (VIM Plugin Syntax) is a lightweight collection of VIM Plugins designed to help with the highlighting and creation of DAI-Specific Files. 
+
+VIMPS will soon be renamed - as it is now a combination of the Legacy VIMPS and my other plugin, POPBOX. They have been merged into this new version as their functionality was starting to converge and make things more
+bloated.
+
+## Currently Supported Files:
+* Plugin Files (e.g. order.plugin)
+* Source Definition Files (e.g. sdf.txt)
+* ATF Test Scripts (e.g. Test_001.wiki)
+* DF Alias (e.g. df_alias.txt)
+
+## Additional Features:
+* Matflo Code snippets - a number of common code snippets can be found in the main menu (bind ```cvr```). There are also a few quick snippets such as creating an ```if( !XXX_ValidRecNo )``` statement based off the current variable under your cursor.
+* Display current function name with ```f``` or jump to the top of the current function with ```ff```
+* Single-line commenting for Plugin, SDF, DF Alias and WIKI files using ```com``` to toggle comment on/off.
+* Hash include shortcut to convert the filename under your cursor to a ```#include "xxx_lib.h"``` statement using ```hi```.
+* Save/Quit menu for people who can't remember how to do this in VIM ;) this can be found in the Main Menu by pressing ```mm```
+
+## Main Keybind:
+* ```mm``` Draws the VIMPS Main Menu Popup Box, where you can acess most tools (including code snippets)
+
+## Installation with a Plugin Manager (Recommended)
+* Add the following to your .vimrc file where you would normally install plugins: ``` Plug 'cburj/VIMPS'```
+* Save and Quit the file.
+* Open a new VIM buffer and call ```:PlugInstall```
+* Wait for the plugin to clone and install.
+
+## Manual Installation (Not Recommended)
+To install VIMPS without a plugin manager follow these easy steps. Please note, you will have to repeat these steps to update the plugin in the future.
+* Download the repo and extract the files.
+* Move "plugin.vim" to ```~/.vim/syntax```
+* Move "dai_plugin.vim" to ```~/.vim/ftdetect```
+
+## Updating VIMPS with a Plugin Manager
+* Open a new VIM buffer and call ```:PlugUpdate```
