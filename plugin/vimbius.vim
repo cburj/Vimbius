@@ -31,14 +31,16 @@ command! PPlug        :call VIMBIUS_VimPlug()
 " -----------------------------------------------------------------------------------
 " KEYBINDS:
 " -----------------------------------------------------------------------------------
-nnoremap cvr  :call VIMBIUS_Check_ValidRecNo() <CR>
-nnoremap hi   :call VIMBIUS_HashInclude() <CR>
-nnoremap com  :call VIMBIUS_PluginComment() <CR>
-nnoremap mm   :call VIMBIUS_MainMenu() <CR>
-nnoremap ff   :call VIMBIUS_JumpToFuncName() <CR>
-nnoremap ss   :call VIMBIUS_SaveMenu() <CR>
-nnoremap ##   :call VIMBIUS_QuickFunc() <CR>
-map f         :call VIMBIUS_GetFunctionName() <CR>
+nnoremap cvr    :call VIMBIUS_Check_ValidRecNo() <CR>
+nnoremap hi     :call VIMBIUS_HashInclude() <CR>
+nnoremap com    :call VIMBIUS_PluginComment() <CR>
+nnoremap mm     :call VIMBIUS_MainMenu() <CR>
+nnoremap ff     :call VIMBIUS_JumpToFuncName() <CR>
+nnoremap ss     :call VIMBIUS_SaveMenu() <CR>
+nnoremap ##     :call VIMBIUS_QuickFunc() <CR>
+nnoremap todo   :call VIMBIUS_Todo() <CR>
+nnoremap fixme  :call VIMBIUS_FixMe() <CR>
+nnoremap f      :call VIMBIUS_GetFunctionName() <CR>
 
 
 " -----------------------------------------------------------------------------------
@@ -319,6 +321,18 @@ func! VIMBIUS_VimPlug()
   call popup_menu(['PlugInstall', 'PlugClean', 'PlugUpdate', 'PlugStatus', '    Main Menu'], #{ title: "VIM Plug Settings [VIMBIUS]", callback: 'VIMBIUS_HandleVimPlug', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfunc
 
+
+" Add a TODO comment above the current line.
+fun! VIMBIUS_Todo()
+  execute "normal! O//TODO"
+  execute "normal! ^"
+endfun
+
+" Add a FIXME comment above the current line.
+fun! VIMBIUS_FixMe()
+  execute "normal! O//FIXME"
+  execute "normal! ^"
+endfun
 " -----------------------------------------------------------------------------------
 "  VIMBIUS (2021)
 "  
