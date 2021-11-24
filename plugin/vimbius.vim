@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.0.0
+" Version:      1.1.0
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -19,6 +19,7 @@
 command! CheckValid   :call VIMBIUS_Check_ValidRecNo()
 command! HashInclude  :call VIMBIUS_HashInclude()
 command! CommentLine  :call VIMBIUS_PluginComment()
+command! TemplateConv :call VIMBIUS_TemplateConvert()
 command! PTime        :call VIMBIUS_GetDateTime()
 command! PFunc        :call VIMBIUS_GetFunctionName()
 command! PJump        :call VIMBIUS_JumpToFuncName()
@@ -40,6 +41,7 @@ nnoremap ss     :call VIMBIUS_SaveMenu() <CR>
 nnoremap ##     :call VIMBIUS_QuickFunc() <CR>
 nnoremap todo   :call VIMBIUS_Todo() <CR>
 nnoremap fixme  :call VIMBIUS_FixMe() <CR>
+nnoremap temp   :call VIMBIUS_TemplateConvert() <CR>
 nnoremap f      :call VIMBIUS_GetFunctionName() <CR>
 
 
@@ -281,11 +283,13 @@ endfun
 func! VIMBIUS_HandleMainMenu(id, result)
   if a:result == 1
     execute ':PQuick'
-  elseif a:result == 2
-    execute ':PPlug'
+  elseif a:result ==2
+    execute ':TemplateConv'
   elseif a:result == 3
-    execute ':PSave'
+    execute ':PPlug'
   elseif a:result == 4
+    execute ':PSave'
+  elseif a:result == 5
     execute ':PTime'
   else
     "Do nothing
@@ -294,7 +298,7 @@ endfunc
 
 
 func! VIMBIUS_MainMenu()
-  call popup_menu([ 'Snippets', 'VIM-Plug Settings','Save Menu', 'Calendar'], #{ title: "Main Menu [VIMBIUS]", callback: 'VIMBIUS_HandleMainMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
+  call popup_menu([ 'Snippets', 'Convert Template', 'VIM-Plug Settings','Save Menu', 'Calendar'], #{ title: "Main Menu [VIMBIUS]", callback: 'VIMBIUS_HandleMainMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfun
 
 
@@ -332,6 +336,52 @@ endfun
 fun! VIMBIUS_FixMe()
   execute "normal! O//FIXME"
   execute "normal! ^"
+endfun
+
+" Quickly convert a template file using its filename as the new entity name.
+" E.g. manual_loc_lib.c will result in all instances of XXX/Xxx/xxx being
+" converted to MANUAL_LOC/ManualLoc/manual_loc
+func! VIMBIUS_TemplateConvert()
+  let filename = expand('%')
+  let entityName = ""
+
+  " Strip away relevant entityName endings
+  if filename =~ "lib.c" 
+    let entityName = substitute( filename, "_lib.c", "", "" )
+  elseif filename =~ "_lib_api.c"
+    let entityName = substitute( filename, "_lib_api.c", "", "" )
+  elseif filename =~ ".plugin"
+    let entityName = substitute( filename, ".plugin", "", "" )
+  elseif filename =~ "_definitions.h"
+    let entityName = substitute( filename, "_definitions.h", "", "" )
+  elseif filename =~ "_declarations.h"
+    let entityName = substitute( filename, "_declarations.h", "", "" )
+  endif
+
+  " It's a bit harder to convert xxx_yyy to Xxx_Yyy
+  let entityCamel = ""
+  let counter = 1
+  for s:item in split(entityName, '\zs')
+    if( counter == 1 )
+      let entityCamel = entityCamel . toupper( s:item )
+      let counter = 0
+    elseif s:item == "_"
+      "we ignore underscores, so we get CamelCase
+      let counter = 1
+    else
+      let entityCamel = entityCamel . s:item
+      let counter = 0
+    endif
+  endfor
+
+  echo ">> Making Changes..."
+  " Replace the first all instances with the match case of the file name.
+  exe '%s/xxx/' . entityName
+  exe '%s/XXX/' . toupper(entityName)
+  exe '%s/Xxx/' . entityCamel
+
+  echo ">> File Updated!"
+
 endfun
 " -----------------------------------------------------------------------------------
 "  VIMBIUS (2021)

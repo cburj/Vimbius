@@ -1,7 +1,7 @@
 ![VIMPS Logo](VIMPS_Banner.png)
 
 <p align="center">
-    Current Version: 1.0.0 (November 2021)
+    Current Version: 1.1.0 (November 2021)
 </p>
 
 ## What is VIMBIUS?
@@ -19,6 +19,7 @@ VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Plugins d
 * Single-line commenting for Plugin, SDF, DF Alias and WIKI files using ```com``` to toggle comment on/off.
 * Hash include shortcut to convert the filename under your cursor to a ```#include "xxx_lib.h"``` statement using ```hi```.
 * Save/Quit menu for people who can't remember how to do this in VIM ;) this can be found in the Main Menu by pressing ```mm```
+* Convert a Template file using its file name. For example you can copy a template to manual_loc_lib.c, edit the file and run the converter. Every instance of ```XXX/Xxx/xxx``` will be converted to ```MANUAL_LOC/ManualLoc/manual_loc```. This can be accessed in the main menu (```mm```) and selecting ```Convert Template```.
 
 ## Main Keybind:
 * ```mm``` Draws the VIMBIUS Main Menu Popup Box, where you can acess most tools (including code snippets)
