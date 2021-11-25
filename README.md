@@ -1,28 +1,29 @@
 ![VIMPS Logo](VIMPS_Banner.png)
 
 <p align="center">
-    Current Version: 1.1.0 (November 2021)
+    Current Version: 1.2.0 (November 2021)
 </p>
 
 ## What is VIMBIUS?
 VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Plugins designed to help with the highlighting and creation of DAI-Specific Files.
 
-## Currently Supported Files:
-* Plugin Files (e.g. order.plugin)
-* Source Definition Files (e.g. sdf.txt)
-* ATF Test Scripts (e.g. Test_001.wiki)
-* DF Alias (e.g. df_alias.txt)
-
-## Additional Features:
-* Matflo Code snippets - a number of common code snippets can be found in the main menu (bind ```cvr```). There are also a few quick snippets such as creating an ```if( !XXX_ValidRecNo )``` statement based off the current variable under your cursor.
+## Features:
+* Matflo Code snippets - a number of common code snippets can be found in the main menu (bind ```mm```). There are also a few quick snippets such as creating an ```if( !XXX_ValidRecNo )``` statement based off the current variable under your cursor using keybind ```cvr``` (Check Valid RecNo).
 * Display current function name with ```f``` or jump to the top of the current function with ```ff```
 * Single-line commenting for Plugin, SDF, DF Alias and WIKI files using ```com``` to toggle comment on/off.
 * Hash include shortcut to convert the filename under your cursor to a ```#include "xxx_lib.h"``` statement using ```hi```.
 * Save/Quit menu for people who can't remember how to do this in VIM ;) this can be found in the Main Menu by pressing ```mm```
-* Convert a Template file using its file name. For example you can copy a template to manual_loc_lib.c, edit the file and run the converter. Every instance of ```XXX/Xxx/xxx``` will be converted to ```MANUAL_LOC/ManualLoc/manual_loc```. This can be accessed in the main menu (```mm```) and selecting ```Convert Template```.
+* Convert a Template file using its file name. For example you can rename a template to manual_loc_lib.c, edit the file and run the converter. Every instance of ```XXX/Xxx/xxx``` will be converted to ```MANUAL_LOC/ManualLoc/manual_loc```. This can be accessed in the main menu (```mm```) and selecting ```Convert Template```.
+* Show output of ```hg status .``` in a new split to the right. Also includes Syntax highlighting to replicate the output seen in the terminal (as best as possible).
 
 ## Main Keybind:
 * ```mm``` Draws the VIMBIUS Main Menu Popup Box, where you can acess most tools (including code snippets)
+
+## Syntax Highlighting Support:
+* Plugin Files (e.g. order.plugin)
+* Source Definition Files (e.g. sdf.txt)
+* ATF Test Scripts (e.g. Test_001.wiki)
+* DF Alias (e.g. df_alias.txt)
 
 ## Installation with a Plugin Manager (Recommended)
 * Add the following to your .vimrc file where you would normally install plugins: ``` Plug 'cburj/vimbius'```
@@ -38,3 +39,10 @@ To install VIMBIUS without a plugin manager follow these easy steps. Please note
 
 ## Updating VIMBIUS with a Plugin Manager
 * Open a new VIM buffer and call ```:PlugUpdate```
+
+## Contributing
+If you feel comfortable developing new features in Vimscript, then feel free to create a pull request and I will gladly merge in your code!
+
+## Planned Development
+* Config/Settings - allow users to set global options in their ```.vimrc``` that influence the behaviour of VIMBIUS. E.g. Disabling specific keybinds.
+* Show list of all keybinds in a Main menu option, to make things a bit easier to learn.

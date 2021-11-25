@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.1.0
+" Version:      1.2.0
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -20,6 +20,7 @@ command! CheckValid   :call VIMBIUS_Check_ValidRecNo()
 command! HashInclude  :call VIMBIUS_HashInclude()
 command! CommentLine  :call VIMBIUS_PluginComment()
 command! TemplateConv :call VIMBIUS_TemplateConvert()
+command! HgStatus     :call VIMBIUS_HgStatus()
 command! PTime        :call VIMBIUS_GetDateTime()
 command! PFunc        :call VIMBIUS_GetFunctionName()
 command! PJump        :call VIMBIUS_JumpToFuncName()
@@ -42,6 +43,7 @@ nnoremap ##     :call VIMBIUS_QuickFunc() <CR>
 nnoremap todo   :call VIMBIUS_Todo() <CR>
 nnoremap fixme  :call VIMBIUS_FixMe() <CR>
 nnoremap temp   :call VIMBIUS_TemplateConvert() <CR>
+nnoremap hgst   :call VIMBIUS_HgStatus() <CR>
 nnoremap f      :call VIMBIUS_GetFunctionName() <CR>
 
 
@@ -382,6 +384,28 @@ func! VIMBIUS_TemplateConvert()
 
   echo ">> File Updated!"
 
+endfun
+
+
+" Show the output of 'hg status .' in a new split to the right.
+fun! VIMBIUS_HgStatus()
+  "Call HG Status and assign to a variable
+  let hgstatus = system("hg status .")
+
+  "Create a new split to hold the HG Status contents
+  vsplit __TestCharlie__
+  
+  "Make this new split 45 units wide
+  vertical resize 45
+
+  setlocal buftype=nofile
+
+  "Custom filetype so we can have some syntax highlighting
+  "based on the file changes.
+  setlocal filetype=vimbius_hg
+
+  "Append the HG Status contents
+  call append( 0, split(hgstatus, '\v\n') )  
 endfun
 " -----------------------------------------------------------------------------------
 "  VIMBIUS (2021)
