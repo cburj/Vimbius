@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.2.0
+" Version:      1.2.1
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -393,7 +393,7 @@ fun! VIMBIUS_HgStatus()
   let hgstatus = system("hg status .")
 
   "Create a new split to hold the HG Status contents
-  vsplit __TestCharlie__
+  vsplit __HgStatus__
   
   "Make this new split 45 units wide
   vertical resize 45
