@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.2.1
+" Version:      1.2.2
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -57,6 +57,7 @@ nnoremap f      :call VIMBIUS_GetFunctionName() <CR>
 " CORE FUNCTIONS:
 " -----------------------------------------------------------------------------------
 
+""
 "Autogen XXX_ValidRecNo() if-statement for XxxRecNo Variable.
 "Default Keybind is "cvr" (a.k.a. Check Valid RecNo), but this
 "can be changed in the lines above.
@@ -101,6 +102,7 @@ func! VIMBIUS_Check_ValidRecNo()
 endfun
 
 
+""
 " Creates a #include statement for the file under the cursor.
 fun! VIMBIUS_HashInclude()
   let wordUnderCursor = expand("<cfile>")
@@ -111,6 +113,7 @@ fun! VIMBIUS_HashInclude()
 endfun
 
 
+""
 " Commenting single lines in Plugin, SDF, DF Alias and WIKI/ATF Files.
 " Use 'com' to activate this function.
 fun! VIMBIUS_PluginComment()
@@ -143,6 +146,7 @@ fun! VIMBIUS_PluginComment()
 endfun
 
 
+""
 " Gets the name of the current function and displays in a popup dialog
 fun! VIMBIUS_GetFunctionName()
   let lnum = line(".")
@@ -155,6 +159,7 @@ fun! VIMBIUS_GetFunctionName()
 endfun
 
 
+""
 " Gets the current date and time and displays in a popup dialog.
 fun! VIMBIUS_GetDateTime()
   let text = system( 'date' )
@@ -166,6 +171,8 @@ fun! VIMBIUS_JumpToFuncName()
   call search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW')
 endfun
 
+
+""
 " Handles all of the inputs from the SaveMenu popup box
 func! VIMBIUS_HandleSaveMenu(id, result)
   " echo a:result
@@ -187,13 +194,13 @@ func! VIMBIUS_HandleSaveMenu(id, result)
   endif
 endfunc
 
-
+""
 " Shows a Popup save menu - making it much easier to save and quit files in VIM.
 func! VIMBIUS_SaveMenu()
   call popup_menu(['Save', 'Save + Quit', 'Quit', 'Force Quit',], #{ title: "Save Menu [VIMBIUS]", callback: 'VIMBIUS_HandleSaveMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfunc
 
-
+""
 " Handles the inputs for the QuickFunc Popup
 func! VIMBIUS_HandleQuickFunc(id, result)
   let cur_line_num = line('.')
@@ -274,13 +281,14 @@ func! VIMBIUS_HandleQuickFunc(id, result)
   endif
 endfunc
 
-
+""
 " Shows a Popup 'Quick-Function' dialog to easily insert common function prototypes.
 func! VIMBIUS_QuickFunc()
   call popup_menu([ 'GLOBAL Func', 'SHOW Detail-Func    [MANTA]', 'HANDLE Detail-Func  [MANTA]', 'SHOW List-Func      [MANTA]', 'HANDLE List-Func    [MANTA]', 'Get Value Str       [MANTA]', 'Infinite Loop', 'If Statement',  'Define Plugin Point', 'Plugin Insertion Point', '        Main Menu'], #{ title: "Quick Functions [VIMBIUS]", callback: 'VIMBIUS_HandleQuickFunc', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfun
 
 
+""
 " Handles all of the inputs from the SaveMenu popup box
 func! VIMBIUS_HandleMainMenu(id, result)
   if a:result == 1
@@ -298,12 +306,13 @@ func! VIMBIUS_HandleMainMenu(id, result)
   endif
 endfunc
 
-
+""
+" Main Menu Popup Function
 func! VIMBIUS_MainMenu()
   call popup_menu([ 'Snippets', 'Convert Template', 'VIM-Plug Settings','Save Menu', 'Calendar'], #{ title: "Main Menu [VIMBIUS]", callback: 'VIMBIUS_HandleMainMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfun
 
-
+""
 " Handles all of the inputs from the VimPlug popup box
 func! VIMBIUS_HandleVimPlug(id, result)
   if a:result == 1
@@ -321,25 +330,27 @@ func! VIMBIUS_HandleVimPlug(id, result)
   endif
 endfunc
 
-
+""
 " Shows a Popup menu for VIM Plug Settings
 func! VIMBIUS_VimPlug()
   call popup_menu(['PlugInstall', 'PlugClean', 'PlugUpdate', 'PlugStatus', '    Main Menu'], #{ title: "VIM Plug Settings [VIMBIUS]", callback: 'VIMBIUS_HandleVimPlug', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfunc
 
-
+""
 " Add a TODO comment above the current line.
 fun! VIMBIUS_Todo()
   execute "normal! O//TODO"
   execute "normal! ^"
 endfun
 
+""
 " Add a FIXME comment above the current line.
 fun! VIMBIUS_FixMe()
   execute "normal! O//FIXME"
   execute "normal! ^"
 endfun
 
+""
 " Quickly convert a template file using its filename as the new entity name.
 " E.g. manual_loc_lib.c will result in all instances of XXX/Xxx/xxx being
 " converted to MANUAL_LOC/ManualLoc/manual_loc
@@ -387,6 +398,7 @@ func! VIMBIUS_TemplateConvert()
 endfun
 
 
+""
 " Show the output of 'hg status .' in a new split to the right.
 fun! VIMBIUS_HgStatus()
   "Call HG Status and assign to a variable
@@ -405,7 +417,12 @@ fun! VIMBIUS_HgStatus()
   setlocal filetype=vimbius_hg
 
   "Append the HG Status contents
+  "TODO This is done in reverse order for now. But needs to be fixed 🙂
   call append( 0, split(hgstatus, '\v\n') )  
+  call append( 0, '' )
+  call append( 0, '========================================' )
+  call append( 0, 'Changes in Current Directory:' )
+  call append( 0, '========================================' )
 endfun
 " -----------------------------------------------------------------------------------
 "  VIMBIUS (2021)

@@ -1,7 +1,7 @@
 ![VIMPS Logo](VIMPS_Banner.png)
 
 <p align="center">
-    Current Version: 1.2.1 (November 2021)
+    Current Version: 1.2.2 (November 2021)
 </p>
 
 ## What is VIMBIUS?
