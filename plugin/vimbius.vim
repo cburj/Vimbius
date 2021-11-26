@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.3.0
+" Version:      1.4.0
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -21,6 +21,7 @@ command! HashInclude  :call VIMBIUS_HashInclude()
 command! CommentLine  :call VIMBIUS_PluginComment()
 command! TemplateConv :call VIMBIUS_TemplateConvert()
 command! HgStatus     :call VIMBIUS_HgStatus()
+command! HgLogBranch  :call VIMBIUS_HgLogBranch()
 command! PTime        :call VIMBIUS_GetDateTime()
 command! PFunc        :call VIMBIUS_GetFunctionName()
 command! PJump        :call VIMBIUS_JumpToFuncName()
@@ -44,6 +45,7 @@ nnoremap todo   :call VIMBIUS_Todo() <CR>
 nnoremap fixme  :call VIMBIUS_FixMe() <CR>
 nnoremap temp   :call VIMBIUS_TemplateConvert() <CR>
 nnoremap hgst   :call VIMBIUS_HgStatus() <CR>
+nnoremap hglog  :call VIMBIUS_HgLogBranch() <CR>
 nnoremap f      :call VIMBIUS_GetFunctionName() <CR>
 
 
@@ -423,7 +425,33 @@ fun! VIMBIUS_HgStatus()
   call append( 0, '========================================' )
   call append( 0, 'Changes in Current Directory:' )
   call append( 0, '========================================' )
+
+  "Jump to the 5th line - this is where the files will always
+  "start from.
+  execute "normal! 5G"
 endfun
+
+
+""
+" Show the history of the current repo - in the current branch.
+" This is kind of useful as it means you don't have to open up
+" Kallithea or Tortoise Workbench 
+function! VIMBIUS_HgLogBranch()
+  let hglog = system("hg log -b $(hg branch) -l 10")
+
+  "Create a new split to hold the HG Log contents
+  vsplit __HgLogBranch__
+  
+  "Make this new split 50 units wide
+  vertical resize 50
+
+  setlocal buftype=nofile
+
+  call append( 0, split( hglog, '\v\n' ) )
+
+  " Go to the top of the buffer
+  execute "normal! gg"
+endfunction
 " -----------------------------------------------------------------------------------
 "  VIMBIUS (2021)
 "  
