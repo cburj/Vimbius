@@ -18,6 +18,7 @@
 " -----------------------------------------------------------------------------------
 nnoremap <buffer> <C-x> :call VIMBIUS_ProcessFile() <CR>
 nnoremap <buffer> <cr>  :call VIMBIUS_OpenFile() <CR>
+nnoremap <buffer> q     :call VIMBIUS_CloseSplit() <CR>
 
 function! VIMBIUS_OpenFile()
   echo 'Opening File 📂'
@@ -68,11 +69,17 @@ function! VIMBIUS_ProcessFile()
   let response = system("hg " . fileOption . " " . fileName )
 
   "Close the Buffer
-  bdelete
+  call VIMBIUS_CloseSplit()
 
   "TODO - figure out how to re-fresh or re-call the buffer
   "with all of the updated mercurial status info.
 
+endfunction
+
+""
+" Closes the current split
+function! VIMBIUS_CloseSplit()
+  bdelete
 endfunction
 
 " -----------------------------------------------------------------------------------
