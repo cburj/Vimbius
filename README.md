@@ -5,7 +5,7 @@
 </p>
 
 ## What is VIMBIUS?
-VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Plugins designed to help with the highlighting and creation of DAI-Specific Files.
+VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Utilities designed to help with the highlighting and creation of DAI-Specific Files.
 
 ## Features:
 * Matflo Code snippets - a number of common code snippets can be found in the main menu (bind ```mm```). There are also a few quick snippets such as creating an ```if( !XXX_ValidRecNo )``` statement based off the current variable under your cursor using keybind ```cvr``` (Check Valid RecNo).
