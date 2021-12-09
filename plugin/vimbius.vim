@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.4.0
+" Version:      1.4.1
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
@@ -22,7 +22,6 @@ command! CommentLine  :call VIMBIUS_PluginComment()
 command! TemplateConv :call VIMBIUS_TemplateConvert()
 command! HgStatus     :call VIMBIUS_HgStatus()
 command! HgLogBranch  :call VIMBIUS_HgLogBranch()
-command! PTime        :call VIMBIUS_GetDateTime()
 command! PFunc        :call VIMBIUS_GetFunctionName()
 command! PJump        :call VIMBIUS_JumpToFuncName()
 command! PSave        :call VIMBIUS_SaveMenu()
@@ -110,7 +109,7 @@ fun! VIMBIUS_HashInclude()
   let wordUnderCursor = expand("<cfile>")
   let hashInclude = '#include "' . wordUnderCursor . '"'
   d
-  execute "normal! i" . hashInclude
+  execute "normal! i" . hashInclude . "\r"
   execute "normal! ^"
 endfun
 
@@ -160,13 +159,6 @@ fun! VIMBIUS_GetFunctionName()
   call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
 
-
-""
-" Gets the current date and time and displays in a popup dialog.
-fun! VIMBIUS_GetDateTime()
-  let text = system( 'date' )
-  call popup_dialog( [text], #{ title: 'Date & Time [VIMBIUS]', padding: [1,5,1,5], highlight: 'WildMenu', time: 3000, } )
-endfun
 
 fun! VIMBIUS_JumpToFuncName()
   echohl ModeMsg
@@ -227,8 +219,8 @@ func! VIMBIUS_HandleQuickFunc(id, result)
     execute "normal! o\n
           \static DATA_API_STATUS HandleXXXAction(\r
           \const DATA_API_DETAIL_ACTION*  Action,\r
-          \const char*                    RecordId )\r
-          \DATA_API_ACTION_REQUEST*       ActionRequest\r
+          \const char*                    RecordId,\r
+          \DATA_API_ACTION_REQUEST*       ActionRequest )\r
           \{\r
           \ return DATA_API_STATUS_OK;\r
           \}"  
@@ -302,7 +294,6 @@ func! VIMBIUS_HandleMainMenu(id, result)
   elseif a:result == 4
     execute ':PSave'
   elseif a:result == 5
-    execute ':PTime'
   else
     "Do nothing
   endif
@@ -311,7 +302,7 @@ endfunc
 ""
 " Main Menu Popup Function
 func! VIMBIUS_MainMenu()
-  call popup_menu([ 'Snippets', 'Convert Template', 'VIM-Plug Settings','Save Menu', 'Calendar'], #{ title: "Main Menu [VIMBIUS]", callback: 'VIMBIUS_HandleMainMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
+  call popup_menu([ 'Snippets', 'Convert Template', 'VIM-Plug Settings','Save Menu', 'Reload ~/.vimrc'], #{ title: "Main Menu [VIMBIUS]", callback: 'VIMBIUS_HandleMainMenu', highlight: 'wildmenu', border: [], close: 'click',  padding: [1,5,1,5]} )
 endfun
 
 ""
@@ -391,9 +382,16 @@ func! VIMBIUS_TemplateConvert()
 
   echo ">> Making Changes..."
   " Replace the first all instances with the match case of the file name.
-  exe '%s/xxx/' . entityName
-  exe '%s/XXX/' . toupper(entityName)
-  exe '%s/Xxx/' . entityCamel
+  " If we don't check the patterns exist first, then we will get errors.
+  if( search( "xxx" ) )
+    exe 'silent %s/xxx/' . entityName . '/g'
+  endif
+  if( search( "XXX" ) )
+    exe 'silent %s/XXX/' . toupper(entityName) . '/g'
+  endif
+  if( search( "Xxx" ) )
+    exe 'silent %s/Xxx/' . entityCamel . '/g'
+  endif
 
   echo ">> File Updated!"
 
