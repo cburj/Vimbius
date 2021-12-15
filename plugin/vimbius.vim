@@ -228,8 +228,8 @@ func! VIMBIUS_HandleQuickFunc(id, result)
     "MANTA List Show Function
     execute "normal! o\n
           \static DATA_API_ACTION_SHOW_TYPE ShowXXXAction(\r
-          \DATA_API_LIST_ACTION*    Action,\r
-          \const DATA_API_QUERY*    Query )\r
+          \DATA_API_LIST_ACTION    *Action,\r
+          \const DATA_API_QUERY    *Query )\r
           \{\r
           \ return DATA_API_ACTION_SHOW_ENABLED;\r
           \}"  
@@ -237,9 +237,9 @@ func! VIMBIUS_HandleQuickFunc(id, result)
     "MANTA List Handle Function
     execute "normal! o\n
           \static DATA_API_STATUS HandleXXXAction(\r
-          \const DATA_API_LIST_ACTION*    Action,\r
-          \const DATA_API_QUERY*          Query )\r
-          \DATA_API_ACTION_REQUEST*       ActionRequest\r
+          \const DATA_API_LIST_ACTION    *Action,\r
+          \const DATA_API_QUERY          *Query )\r
+          \DATA_API_ACTION_REQUEST       *ActionRequest\r
           \{\r
           \ return DATA_API_STATUS_OK;\r
           \}"  
