@@ -1,16 +1,11 @@
 " -----------------------------------------------------------------------------------
 " VIMBIUS:      VIM Basic Input Utilities
 " Maintainer:   Charlie Burgess [http://cburg.co.uk]
-" Version:      1.4.1
+" Version:      2.0.0
 " Project Repo: http://github.com/cburj/vimbius/
 " Description:  VIMBIUS is a lightweight collection of
 "               Syntax Highlighting and Programming tools, designed to increase
 "               productivity and reduce the time it takes to transition to VIM.
-"
-"               VIMBIUS is made up of fragments from two of my previous
-"               plugins: Vimps and POPBOX. They were combined into the
-"               foundation of VIMBIUS to reduce duplication and generally make
-"               my life easier when working on the functionality.
 
 
 " -----------------------------------------------------------------------------------

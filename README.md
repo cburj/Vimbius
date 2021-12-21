@@ -1,11 +1,14 @@
 ![VIMPS Logo](VIMPS_Banner.png)
 
 <p align="center">
-    Current Version: 1.4.1 (December 2021)
+    Current Version: 2.0.0 (December 2021)
 </p>
 
 ## What is VIMBIUS?
-VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Utilities designed to help with the highlighting and creation of DAI-Specific Files.
+VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Utilities designed to help with the highlighting and creation of DAI-Specific Files. This used to be included as part of Vimbius but was removed to reduce complexity and plugin size.
+
+## Prerequisites:
+* Plugin syntax highlighting and additional features requires the presence of the[vim-plugin-syntax](https://github.com/cburj/vim-plugin-syntax/) plugin.
 
 ## Features:
 * Matflo Code snippets - a number of common code snippets can be found in the main menu (bind ```mm```). There are also a few quick snippets such as creating an ```if( !XXX_ValidRecNo )``` statement based off the current variable under your cursor using keybind ```cvr``` (Check Valid RecNo).
@@ -19,23 +22,11 @@ VIMBIUS (VIM Basic Input Utilities) is a lightweight collection of VIM Utilities
 ## Main Keybind:
 * ```mm``` Draws the VIMBIUS Main Menu Popup Box, where you can acess most tools (including code snippets)
 
-## Syntax Highlighting Support:
-* Plugin Files (e.g. order.plugin)
-* Source Definition Files (e.g. sdf.txt)
-* ATF Test Scripts (e.g. Test_001.wiki)
-* DF Alias (e.g. df_alias.txt)
-
-## Installation with a Plugin Manager (Recommended)
+## Installation with a Plugin Manager
 * Add the following to your .vimrc file where you would normally install plugins: ``` Plug 'cburj/vimbius'```
 * Save and Quit the file.
 * Open a new VIM buffer and call ```:PlugInstall```
 * Wait for the plugin to clone and install.
-
-## Manual Installation (Not Recommended)
-To install VIMBIUS without a plugin manager follow these easy steps. Please note, you will have to repeat these steps to update the plugin in the future.
-* Download the repo and extract the files.
-* Move "plugin.vim" to ```~/.vim/syntax```. And repeat for other syntax files.
-* Move "dai_plugin.vim" to ```~/.vim/ftdetect```. And repeat for other file-type detection files.
 
 ## Updating VIMBIUS with a Plugin Manager
 * Open a new VIM buffer and call ```:PlugUpdate```
